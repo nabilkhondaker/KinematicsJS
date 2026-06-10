@@ -120,14 +120,69 @@ body.light-mode .btn-primary-neon:hover { border-color: rgba(79, 70, 229, 0.5); 
 .glow-kbd { background: var(--kbd-bg); color: var(--cyan) !important; border-color: rgba(0, 242, 254, 0.3) !important; box-shadow: 0 0 10px rgba(0, 242, 254, 0.1); font-weight: 700; }
 body.light-mode .glow-kbd { color: #4f46e5 !important; border-color: rgba(79, 70, 229, 0.3) !important; }
 
-/* THEME CORES AND DASHBOARD GRIDS */
+/* FIX: Ensure container never exceeds viewport */
 .app-container {
     display: grid;
     grid-template-columns: 360px 1fr;
-    grid-template-rows: 70px 1fr;
+    grid-template-rows: auto 1fr; /* Changed from fixed 70px to auto */
     grid-template-areas: "header header" "sidebar workspace";
     height: 100vh;
     width: 100vw;
+    overflow: hidden;
+}
+
+/* FIX: Prevent graph from being cut off */
+.dashboard-graph {
+    flex: 0 0 250px; /* Use flex-basis instead of fixed height */
+    min-height: 200px;
+    background: var(--chart-bg);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border-color);
+    z-index: 5;
+    overflow: hidden;
+}
+
+/* FIX: Telemetry panel text wrapping */
+.telemetry-panel {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--telemetry-panel-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    max-width: 280px; /* Increased from 250px */
+    width: 90%;       /* Responsive width */
+    pointer-events: none;
+    z-index: 100;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    word-wrap: break-word;
+}
+
+/* Responsive Overrides */
+@media (max-width: 960px) {
+    .app-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 1fr;
+        grid-template-areas: "header" "sidebar" "workspace";
+        height: auto;
+    }
+    
+    .workspace {
+        height: 50vh; /* Allow viewport to shrink on mobile */
+    }
+
+    .dashboard-graph {
+        flex: 0 0 180px;
+        padding: 10px;
+    }
+    
+    .telemetry-panel {
+        width: 160px;
+        font-size: 0.6rem;
+    }
 }
 
 .app-header { grid-area: header; background: var(--bg-surface); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; z-index: 200; }
