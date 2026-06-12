@@ -1,4 +1,4 @@
-<img width="550" height="140" src="KinematicsJS.png">
+<img width="550" height="140" src="KinematicsJS_1.png">
 
 KinematicsJS is a high-performance 2D physics engine built completely from scratch using vanilla JavaScript and HTML5 Canvas[cite: 1, 2, 5]. It uses a custom **Spatial Hash Grid (v4)** to handle ultra-fast collision lookups without lagging, keeping the simulation buttery smooth on everything from older smartphones to 240Hz gaming monitors[cite: 1, 5].
 
